@@ -16,8 +16,8 @@ class PhoneContact:
 
     def view(self):
         outset = []
-        for i in self.cursor.execute("select * form PhoneList"):
-            outset += {f"{i[0]}": [{"number": f"{str(i[1])}"}, {"note": f"{str(i[2])}"}]}
+        for i in self.cursor.execute("select * from PhoneList"):
+            outset.append({f"{i[0]}": [{"number": f"{str(i[1])}"}, {"note": f"{str(i[2])}"}]})
         print(outset)
 
 
@@ -33,6 +33,7 @@ class PhoneBook:
         numbers = []
         for i in self.loc_cursor.execute(f"SELECT contactNumber FROM PhoneList WHERE name = '{name}'"):
             numbers.append(str(i)[1:-2])
+        print(numbers)
 
     def addContact(self, name: str, contactNumber: int, note: str):
         self.loc_cursor.execute(f"INSERT INTO PhoneList VALUES('{name}', {contactNumber}, '{note}')")
@@ -42,7 +43,4 @@ class PhoneBook:
 PhoneContact = PhoneContact()
 PhoneBook = PhoneBook()
 
-PhoneContact
-
-PhoneBook.addContact('abcd', 77777777777, 'abcd')
 PhoneBook.getContactByName('abcd')
